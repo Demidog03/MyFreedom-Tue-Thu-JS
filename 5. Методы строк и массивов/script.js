@@ -340,8 +340,87 @@
 
 
 // ЗАДАНИЕ 15
-function filterArr(arr) {
-    return arr.filter(element => element.length > 3)
-}
+// function filterArr(arr) {
+//     return arr.filter(element => element.length > 3)
+// }
 
-console.log(filterArr(['yes', 'hello', 'no', 'easycode', 'what']))
+// console.log(filterArr(['yes', 'hello', 'no', 'easycode', 'what']))
+
+
+// SORT
+
+// const numbers = [2, 54, 23, 8, 43, -34, 38]
+// const sortedNumbers = numbers.sort((a, b) => {
+//     if (a < b) {
+//         return 1 // текущий элемент идет по индексу вперед
+//     }
+//     if (a > b) {
+//         return -1 // текущий элемент идет по индексу назад
+//     }
+//     return 0
+// })
+// console.log(sortedNumbers)
+
+// const names = ['Olzhas', 'Adiya', 'Temirlan', 'Daniar', 'Aleksey']
+// const sortedNames = names.sort((a, b) => {
+//     if (a < b) {
+//         return 1 // текущий элемент идет по индексу вперед
+//     }
+//     if (a > b) {
+//         return -1 // текущий элемент идет по индексу назад
+//     }
+//     return 0
+// })
+// console.log(sortedNames)
+
+
+// ЗАДАНИЕ 16
+// const arr = [[14, 45], [1], ['a', 'c', 'd']]
+// const sortedArr = arr.sort((a, b) => {
+//     if(a.length > b.length) {
+//         return 1
+//     }
+//     if (a.length < b.length) {
+//         return -1
+//     }
+//     return 0
+// })
+
+// console.log(sortedArr)
+
+
+// const numbers = [0, 1, 2, 3, 4]
+// let sum = 0
+// for (const number of numbers) {
+//     sum += number
+// }
+// console.log(sum)
+
+// const sum = numbers.reduce((accumulator, currentElement) => {
+//     return accumulator + currentElement
+// }, 0)
+
+// console.log(sum)
+
+
+// Reduce
+
+// ЗАДАНИЕ 17
+// function getAverageHumanAge(ages) {
+//     // 1
+//     const humanAges = ages.map(age => age <= 2 ? age * 10 : age * 7)
+
+//     // 2
+//     const filteredAges = humanAges.filter(age => age >= 18)
+    
+//     // 3
+//     const sum = filteredAges.reduce((accumulator, age) => {
+//         return accumulator + age
+//     }, 0)
+//     return sum / filteredAges.length
+// }
+
+// console.log(getAverageHumanAge([7 , 3, 2, 4, 1, 15, 8, 1, 9, 2]))
+// console.log(getAverageHumanAge([1, 16, 12, 4, 5, 1, 3, 11, 7, 2]))
+
+

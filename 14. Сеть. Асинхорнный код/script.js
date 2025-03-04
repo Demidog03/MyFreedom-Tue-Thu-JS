@@ -212,56 +212,90 @@ const weatherTemp = document.getElementById('weatherTemp')
 const windSpeed = document.getElementById('windSpeed')
 const futureWeatherTemplate = document.getElementById('futureWeatherTemplate')
 const futureWeatherContainer = document.getElementById('futureWeatherContainer')
+const spinnerOverlay = document.getElementById('spinnerOverlay')
+const searchCityBtn = document.getElementById('searchCityBtn')
+const cityNameInput = document.getElementById('cityNameInput')
+const toast = document.getElementById('toast')
+const toastBody = document.getElementById('toastBody')
 
-const httpRequest = new XMLHttpRequest()
-httpRequest.open('GET', 'https://api.openweathermap.org/data/2.5/forecast?q=Astana&appid=a94d0a5ac08570add4b47b8da933f247&units=metric')
-httpRequest.send()
-httpRequest.onload = () => {
-    const data = JSON.parse(httpRequest.response)
-    console.log(data)
+searchCityBtn.addEventListener('click', () => {
+    console.log(cityNameInput.value)
 
-    // Текущий город и время
-    city.innerText = data.city.name
-    time.innerText = getTimeByOffset(data.city.timezone)
-  
-    const currentWeather = data.list[0]
+    getWeather(`https://api.openweathermap.org/data/2.5/forecast?q=${cityNameInput.value}&appid=a94d0a5ac08570add4b47b8da933f247&units=metric`)
+})
 
-    // Меняем иконку погоды
-    weatherIcon.src = `https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
+navigator.geolocation.getCurrentPosition((position) => {
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
+    getWeather(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a94d0a5ac08570add4b47b8da933f247&units=metric`)
+})
 
-    // Меняем название погоды
-    weatherName.innerText = currentWeather.weather[0].main
+function getWeather(link) {
+    spinnerOverlay.classList.remove('hidden')
 
-    // Меняем температуру
-    weatherTemp.innerText = Math.round(currentWeather.main.temp) + ' °C'
+    const httpRequest = new XMLHttpRequest()
+    httpRequest.open('GET', link)
+    httpRequest.send()
+    httpRequest.onload = () => {
+        const data = JSON.parse(httpRequest.response)
+        console.log(data)
 
-    // Меняем скорость ветра
-    windSpeed.innerText = currentWeather.wind.speed + ' m/s'
+        if (httpRequest.status === 200 && data) {
+            futureWeatherContainer.innerHTML = ''
+            
+            // Текущий город и время
+            city.innerText = data.city.name
+            time.innerText = getTimeByOffset(data.city.timezone)
+        
+            const currentWeather = data.list[0]
+
+            // Меняем иконку погоды
+            weatherIcon.src = `https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
+
+            // Меняем название погоды
+            weatherName.innerText = currentWeather.weather[0].main
+
+            // Меняем температуру
+            weatherTemp.innerText = Math.round(currentWeather.main.temp) + ' °C'
+
+            // Меняем скорость ветра
+            windSpeed.innerText = currentWeather.wind.speed + ' m/s'
 
 
-    // Прогноз на след дни
-    for (let i = 8; i < data.list.length; i+=8) {
-        console.log(data.list[i])
+            // Прогноз на след дни
+            for (let i = 8; i < data.list.length; i+=8) {
+                console.log(data.list[i])
 
-        const futureWeatherClone = futureWeatherTemplate.content.cloneNode(true)
-        const futureWeather = futureWeatherClone.getElementById('futureWeather')
-       
-        // Меняем дату и время
-        const futureDate = futureWeatherClone.getElementById('futureDate')
-        const futureTime = futureWeatherClone.getElementById('futureTime')
-        const futureDateAndTime = data.list[i].dt_txt.split(' ')
-        futureDate.innerText = futureDateAndTime[0]
-        futureTime.innerText = futureDateAndTime[1]
+                const futureWeatherClone = futureWeatherTemplate.content.cloneNode(true)
+                const futureWeather = futureWeatherClone.getElementById('futureWeather')
+            
+                // Меняем дату и время
+                const futureDate = futureWeatherClone.getElementById('futureDate')
+                const futureTime = futureWeatherClone.getElementById('futureTime')
+                const futureDateAndTime = data.list[i].dt_txt.split(' ')
+                futureDate.innerText = futureDateAndTime[0]
+                futureTime.innerText = futureDateAndTime[1]
 
-        // Меняем иконку погоды
-        const futureWeatherIcon = futureWeatherClone.getElementById('futureWeatherIcon')
-        futureWeatherIcon.src = `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`
+                // Меняем иконку погоды
+                const futureWeatherIcon = futureWeatherClone.getElementById('futureWeatherIcon')
+                futureWeatherIcon.src = `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`
 
-        // Меняем температуру
-        const futureWeatherTemp = futureWeatherClone.getElementById('futureWeatherTemp')
-        futureWeatherTemp.innerText = Math.round(data.list[i].main.temp) + ' °C'
+                // Меняем температуру
+                const futureWeatherTemp = futureWeatherClone.getElementById('futureWeatherTemp')
+                futureWeatherTemp.innerText = Math.round(data.list[i].main.temp) + ' °C'
 
-        futureWeatherContainer.appendChild(futureWeather)
+                futureWeatherContainer.appendChild(futureWeather)
+            }
+        }
+        else {
+            if(data?.message) {
+                toastBody.innerText = data.message
+            }
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast)
+            toastBootstrap.show()
+        }
+
+        spinnerOverlay.classList.add('hidden')
     }
 }
 

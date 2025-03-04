@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+p {
+    margin-bottom: 0;
+}
+
 .current-weather-container {
     max-width: 370px;
     background-color: darkcyan;
@@ -17,10 +21,15 @@
 }
 
 .current-weather-name {
+    min-width: 50px;
     align-self: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.current-weather-name p {
+    min-width: 50px;
 }
 
 .current-wind-speed {
@@ -39,4 +48,35 @@
     padding: 15px;
     display: flex;
     justify-content: space-between;
+}
+
+.weatherTemp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.windSpeed {
+    min-width: 60px;
+}
+
+.spinner-overlay {
+    width: 100dvw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.toastText::first-letter {
+    text-transform: capitalize;
 }

@@ -1,0 +1,30 @@
+.video-search-input {
+    max-width: 400px;
+}
+
+.all-videos-section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.videoImg {
+    height: 112.5px;
+    width: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease-out;
+}
+
+.videoImg:hover {
+    transform: scale(1.05);
+}
+
+.main-video-title {
+    font-size: 20px;
+}
+
+.hidden {
+    display: none;
+}

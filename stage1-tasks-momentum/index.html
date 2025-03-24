@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="module" src="./script.js" defer></script>
+  <title>momentum</title>
+</head>
+<body>
+  <header class="header">
+    <div class="player">
+      <div class="player-controls">
+        <button id="musicPlayPrevIcon" class="play-prev player-icon"></button>
+        <button id="musicPlayIcon" class="play player-icon"></button>
+        <button id="musicPlayNextIcon" class="play-next player-icon"></button>
+      </div>
+      <ul class="play-list">
+        <li class="play-item">Aqua Caelestis</li>
+        <li class="play-item">River Flows In You</li>
+        <li class="play-item">Summer Wind</li>
+        <li class="play-item">Ennio Morricone</li>
+      </ul>
+    </div>
+    <div class="weather">
+      <input value="Astana" id="cityInput" type="text" class="city" />
+      <img id="weatherIcon" src="" class="weather-icon owf"/>
+      <div id="weatherError" class="weather-error"></div>
+      <div class="description-container">
+        <span id="temperature" class="temperature"></span>
+        <span id="weatherDescription" class="weather-description"></span>
+      </div>
+      <div id="wind" class="wind"></div>
+      <div id="humidityEl" class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button id="sliderPrevBtn" class="slide-prev slider-icon"></button>
+      <button id="sliderNextBtn" class="slide-next slider-icon"></button>
+    </div>
+    <time id="currentTime" datetime="HH:MM:SS" class="time"></time>
+    <date id="currentDate" class="date"></date>
+    <div class="greeting-container">
+      <span id="welcomeText" class="greeting"></span>
+      <input id="welcomeNameInput" type="text" class="name" />
+    </div>
+  </main>
+  <footer class="footer">
+    <button id="changeQuoteBtn" class="change-quote"></button>
+    <div>
+      <div id="quoteText" class="quote"></div>
+      <img id="quoteImg" src=""/>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
